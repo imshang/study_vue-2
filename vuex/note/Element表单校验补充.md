@@ -156,7 +156,7 @@ loginRules: {}
 
 校验规则的格式
 
-***{ key(字段名): value(校验规则) => [{}] }***
+***{ key(字段名): value(校验规则) 是这种=> [{}] }***
 
 根据以上的规则，针对当前表单完成如下要求
 
@@ -213,7 +213,7 @@ var  func = function (rule, value, callback) {
 
 ### 手动校验的实现
 
->  最后一个问题，如果我们直接点登陆按钮，没有离开焦点，那该怎么校验 ？
+>  最后一个问题，如果我们直接点登陆按钮，没有离开焦点这个动作，那该怎么校验 ？
 
 此时我们需要用到手动完整校验  [案例](https://element.eleme.cn/#/zh-CN/component/form)
 
@@ -297,6 +297,7 @@ axios({ url, data}).then(result => {
 
 ```js
 new Promise(function(resolve, reject){ })
+//resolve 进入then中的回调函数  reject 进入catch中的回调函数  参数接收相应的数据
 ```
 
 如果想让Promise成功执行下去，需要执行resolve，如果让它失败执行下去，需要执行reject
@@ -340,7 +341,7 @@ new Promise(function(resolve, reject) {
 
 > async 和 await实际上就是让我们像写同步代码那样去完成异步操作
 
-**await** 表示强制等待的意思，**await**关键字的后面要跟一个promise对象，它总是等到该promise对象resolve成功之后执行，并且会返回resolve的结果
+**await** 表示强制等待的意思，**await**关键字的后面要跟一个promise对象，**它总是等到该promise对象resolve成功之后执行**，并且会返回resolve的结果(**await 关键字 等待promise对象中resolve(没有reject)的结果给到自定义变量接收**)
 
 ```js
  async test () {
@@ -396,9 +397,11 @@ async test () {
    async  getCatch () {
       try {
         await new Promise(function (resolve, reject) {
-          reject(new Error('fail'))
+          reject(new Error('fail'))//在catch中捕获
         })
-        alert(123)
+        alert(123)//前面reject相当于报错此代码不会执行，进入catch执行
+          //try 中 new Error 需要抛出异常用throw 或者其他方法reject 让catch捕捉到
+       //不在try中写new Error 会报错且影响代码执行
       } catch (error) {
         alert(error)
       }

@@ -4,7 +4,7 @@
 
 >  为什么会有Vuex ?
 
-​	Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采用**`集中式`**存储管理应用的所有组件的状态，并以相应的规则保证状态以一种**`可预测`**的方式发生变化。
+​	Vuex 是一个专为 Vue.js 应用程序开发的**状态(数据)管理模式**。它采用**`集中式`**存储管理应用的所有组件的状态，并以相应的规则保证状态以一种**`可预测`**的方式发生变化。
 
 - vuex是采用集中式管理组件依赖的共享数据的一个工具，可以解决不同组件数据共享问题。
 
@@ -229,7 +229,7 @@ methods: {
 
 ## vuex基础-actions
 
-> state是存放数据的，mutations是同步更新数据，actions则负责进行异步操作
+> state是存放数据的，mutations是同步更新数据，actions则负责进行异步操作 通过actions触发mutations
 
 **定义actions**
 
@@ -280,7 +280,7 @@ methods: {
 
 ## vuex基础-getters
 
-> 除了state之外，有时我们还需要从state中派生出一些状态，这些状态是依赖state的，此时会用到getters
+> 除了state之外，有时我们还需要从state中派生出一些状态，这些状态是依赖state的(需要将state中的数据做一些处理)，此时会用到getters
 
 例如，state中定义了list，为1-10的数组，
 
@@ -338,7 +338,7 @@ computed: {
 
 **应用**
 
-定义两个模块   **user** 和  **setting**
+在**modules**中定义两个模块   **user** 和  **setting**
 
 user中管理用户的状态  token 
 
@@ -450,7 +450,7 @@ const store  = new Vuex.Store({
 
 使用带命名空间的模块 **`action/mutations`**
 
-方案1：**直接调用-带上模块的属性名路径**
+方案1：**直接调用-$store.dispatch('模块名称/方法')带上模块的属性名路径**
 
 ```js
 test () {
@@ -462,7 +462,8 @@ test () {
 
 ```vue
   methods: {
-       ...mapMutations(['user/updateToken']),
+      //不能直接在模块中调用updateToken 需要重新定义方法  this['user/updateToken']() 调用
+...mapMutations(['user/updateToken']),
        test () {
            this['user/updateToken']()
        }

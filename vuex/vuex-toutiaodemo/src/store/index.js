@@ -14,14 +14,15 @@ export default new Vuex.Store({
     // 建立对于模块化的快捷访问
     category: state => state.category.category,//建立对于category模块下的category属性的快捷访问
     currentId: state => state.category.currentId,
-    currentList:state=>state.newlist.allData[state.category.currentId]||[]
+    // 使用 [] 取值
+    currentList: state => state.newlist.allData[state.category.currentId] || []
   },
   mutations: {
   },
   actions: {
   },
   modules: {
-    category,
+    category,//category:category
     newlist
   }
 })

@@ -24,7 +24,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button style="width: 100%" type="primary" @click="getCatch"
+          <el-button style="width: 100%" type="primary" @click="onSubmit"
             >登录</el-button
           >
         </el-form-item>
@@ -89,17 +89,18 @@ export default {
     onSubmit() {
       //第一个参数 为是否通过校验规则的布尔值
       //第二个参数 为未通过校验的字段
-      // this.$refs.loginForm.validate(function (isok, obj) {
-      //   if (isok) {
-      //     console.log("校验通过");
-      //     console.log(obj);
-      //   }
-      // });
+      this.$refs.loginForm.validate(function (isok, obj) {
+        if (isok) {
+          console.log("校验通过");
+          console.log(obj);
+        }
+        console.log(obj)
+      });
       // then成功 catch失败
-      this.$refs.loginForm
-        .validate()
-        .then(() => {})
-        .catch(() => {});
+      // this.$refs.loginForm
+      //   .validate()
+      //   .then(() => {})
+      //   .catch(() => {});
     },
     async getCatch() {
       try {
